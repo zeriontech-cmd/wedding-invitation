@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <meta name="supported-color-schemes" content="light">
   <meta name="description" content="Undangan Pernikahan Digital Raka Mahendra & Sekar Ayu — 1 Januari 2027">
   <meta property="og:title" content="The Wedding of Raka & Sekar">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=85">
   <title>The Wedding of Raka & Sekar</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
 
@@ -18,6 +20,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: { extend: {
         fontFamily: { heading: ['Great Vibes', 'cursive'], body: ['Cormorant Infant', 'serif'] }
       }}
@@ -169,20 +172,20 @@
 
     <!-- ── COVER MODAL / PANE (Right column on desktop, full-screen on mobile) ── -->
     <section id="cover" aria-label="Cover undangan">
-      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80'); filter: brightness(0.65);"></div>
-      <div class="absolute inset-0 bg-gradient-to-t from-[#142332]/95 via-[#142332]/40 to-[#142332]/60"></div>
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1000&q=90'); filter: brightness(1.02) contrast(1.02);"></div>
+      <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(20, 35, 50, 0.6) 0%, rgba(85, 122, 149, 0.16) 35%, rgba(85, 122, 149, 0.25) 60%, rgba(20, 35, 50, 0.85) 90%, rgba(16, 28, 40, 0.95) 100%);"></div>
 
-      <div class="relative z-10 text-center px-6 max-w-sm mx-auto text-white" id="cover-content">
-        <p class="font-serif text-xs tracking-[0.35em] uppercase text-[#F0D080] font-semibold mb-4">
+      <div class="relative z-10 text-center px-6 py-6 max-w-sm mx-auto text-white rounded-3xl" id="cover-content" style="background: radial-gradient(ellipse at center, rgba(16, 28, 40, 0.48) 0%, rgba(20, 35, 50, 0.22) 65%, transparent 100%);">
+        <p class="font-serif text-xs tracking-[0.38em] uppercase text-[#F0D080] font-semibold mb-3" style="text-shadow: 0 1px 3px rgba(0,0,0,0.9), 0 2px 6px rgba(0,0,0,0.7);">
           THE WEDDING OF
         </p>
-        <h1 class="font-script text-6xl text-[#FAF6EF] leading-tight drop-shadow-md">
-          Raka & Sekar
+        <h1 class="font-script text-6xl sm:text-7xl text-[#FAF6EF] leading-tight" style="text-shadow: 0 2px 4px rgba(0,0,0,0.85), 0 6px 20px rgba(10,20,30,0.95), 0 0 25px rgba(85,122,149,0.4);">
+          Raka &amp; Sekar
         </h1>
-        <div style="height:1px;background:linear-gradient(to right,transparent,#D4AF37,transparent);margin:1.2rem auto;width:120px"></div>
+        <div style="height:1px;background:linear-gradient(to right,transparent,#D4AF37,transparent);margin:1.1rem auto;width:130px;box-shadow:0 1px 4px rgba(0,0,0,0.6)"></div>
 
-        <p class="font-serif text-xs tracking-widest uppercase text-white/80 mt-4">Kepada Bapak/Ibu/Saudara/i</p>
-        <p class="font-serif text-xl font-semibold text-[#F0D080] mt-1">Tamu Undangan</p>
+        <p class="font-serif text-xs tracking-widest uppercase text-white/95 mt-3" style="text-shadow: 0 1px 3px rgba(0,0,0,0.9);">Kepada Bapak/Ibu/Saudara/i</p>
+        <p class="font-serif text-2xl font-semibold text-[#F0D080] mt-1" style="text-shadow: 0 2px 6px rgba(0,0,0,0.95), 0 0 14px rgba(212,175,55,0.4);">Tamu Undangan</p>
 
         <button id="open-btn" class="btn-slate-pill btn-pulse mt-8 group" aria-label="Buka undangan pernikahan">
           <svg class="w-4 h-4 transition-transform group-hover:rotate-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">

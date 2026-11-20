@@ -8,6 +8,8 @@
 
 /* ── Design Tokens ── */
 :root {
+  color-scheme: light;
+  supported-color-schemes: light;
   --bg-slate:       #557A95;
   --bg-slate-light: #6A8CA7;
   --bg-slate-dark:  #3D5D75;
@@ -38,7 +40,7 @@
 
 /* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; color-scheme: light !important; }
 
 body {
   font-family: var(--font-serif);
@@ -46,6 +48,7 @@ body {
   color: var(--charcoal-text);
   overflow-x: hidden;
   line-height: 1.65;
+  color-scheme: light !important;
 }
 
 /* ═══════════════════════════════════════════════════
@@ -460,3 +463,28 @@ body {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #3B5469; }
 ::-webkit-scrollbar-thumb { background: #60829D; border-radius: 3px; }
+
+/* ═══════════════════════════════════════════════════
+   DISABLE DARK MODE OVERRIDES (Keep ivory cards consistent)
+═══════════════════════════════════════════════════ */
+@media (prefers-color-scheme: dark) {
+  :root, html, body {
+    color-scheme: light !important;
+  }
+  .card-ivory, .card-slate {
+    background-color: #FDFBF7 !important;
+    color: #1C2833 !important;
+  }
+  .event-wedding-card {
+    background-color: #FDFBF7 !important;
+    color: #1C2833 !important;
+  }
+  .countdown-pill-box {
+    background-color: #FFFFFF !important;
+    color: #1C2833 !important;
+  }
+  .form-input-pill, .form-select-pill, .form-textarea-pill {
+    background-color: #FFFFFF !important;
+    color: #1E1C1A !important;
+  }
+}
