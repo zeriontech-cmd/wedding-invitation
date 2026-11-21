@@ -47,6 +47,33 @@ openBtn?.addEventListener('click', () => {
   }, 850);
 });
 
+// Auto-open if ?open is present in URL (useful for direct preview & testing)
+if (new URLSearchParams(window.location.search).has('open')) {
+  if (cover) cover.style.display = 'none';
+  if (mainContent) {
+    mainContent.style.opacity = '1';
+    mainContent.style.pointerEvents = 'auto';
+  }
+  document.querySelectorAll('[data-reveal]').forEach(el => {
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+  });
+  const hash = window.location.hash;
+  if (hash) {
+    const target = document.querySelector(hash);
+    if (target) {
+      target.scrollIntoView();
+    }
+  }
+  setTimeout(() => {
+    if (typeof ScrollTrigger !== 'undefined' && ScrollTrigger.refresh) {
+      ScrollTrigger.refresh();
+    }
+    initScrollAnimations();
+    startPetals();
+  }, 150);
+}
+
 // ─────────────────────────────────────────────
 // 2. COUNTDOWN TIMER (Target: 1 Januari 2027)
 // ─────────────────────────────────────────────
@@ -110,18 +137,18 @@ function initScrollAnimations() {
     });
   });
 
-  // Staggered reveal for gallery thumbnails
+  // Staggered reveal for gallery thumbnails (safe without locking opacity to zero)
   if (document.querySelectorAll('.gallery-item').length) {
     gsap.from('.gallery-item', {
-      opacity: 0,
-      y: 35,
-      scale: 0.9,
-      duration: 0.75,
-      stagger: 0.12,
-      ease: 'back.out(1.4)',
+      scale: 0.94,
+      y: 20,
+      duration: 0.65,
+      stagger: 0.08,
+      ease: 'power2.out',
+      clearProps: 'all',
       scrollTrigger: {
         trigger: '#gallery',
-        start: 'top 82%',
+        start: 'top 90%',
         toggleActions: 'play none none none'
       }
     });
@@ -156,7 +183,8 @@ let   isPlaying = false;
 
 function tryPlayMusic() {
   if (!audio) return;
-  audio.volume = 0.35;
+  console.log({audio});
+  audio.volume = 1;
   const p = audio.play();
   if (p !== undefined) {
     p.then(() => {
