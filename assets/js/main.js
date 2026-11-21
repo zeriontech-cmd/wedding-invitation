@@ -9,6 +9,51 @@ if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // ─────────────────────────────────────────────
+// 0. DYNAMIC GUEST NAME (Base64 ?v= with ?to= Fallback)
+// ─────────────────────────────────────────────
+function initGuestName() {
+  const guestEl = document.getElementById('guest-name');
+  const rsvpNameInput = document.getElementById('rsvp-name');
+  if (!guestEl) return;
+
+  const params = new URLSearchParams(window.location.search);
+  let guestName = '';
+
+  // 1. Try decode Base64 parameter ?v=
+  const base64Param = params.get('v');
+  if (base64Param) {
+    try {
+      const normalized = base64Param.replace(/-/g, '+').replace(/_/g, '/');
+      const decoded = decodeURIComponent(escape(atob(normalized)));
+      if (decoded && decoded.trim().length > 0) {
+        guestName = decoded.trim();
+      }
+    } catch (e) {
+      console.warn('Gagal membaca parameter Base64 v:', e);
+    }
+  }
+
+  // 2. Fallback parameter ?to= / ?u= / ?guest=
+  if (!guestName) {
+    const rawParam = params.get('to') || params.get('u') || params.get('guest');
+    if (rawParam && rawParam.trim().length > 0) {
+      guestName = rawParam.trim();
+    }
+  }
+
+  // 3. Render name & auto-fill RSVP form
+  if (guestName) {
+    guestEl.textContent = guestName;
+    if (rsvpNameInput && !rsvpNameInput.value) {
+      rsvpNameInput.value = guestName;
+    }
+  } else {
+    guestEl.textContent = 'Tamu Undangan';
+  }
+}
+initGuestName();
+
+// ─────────────────────────────────────────────
 // 1. COVER PAGE
 // ─────────────────────────────────────────────
 const cover       = document.getElementById('cover');

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generator Link Undangan — Raka & Sekar</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💌</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,400;0,600;0,700;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Great Vibes', 'cursive'],
+            serif: ['Cormorant Infant', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #1A2D3E 0%, #2B4660 50%, #15222E 100%);
+      min-height: 100vh;
+      color: #FDFBF7;
+      font-family: 'Cormorant Infant', serif;
+    }
+    .card-luxury {
+      background: rgba(253, 251, 247, 0.96);
+      color: #1C2833;
+      border: 1.5px solid rgba(212, 175, 55, 0.4);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+      border-radius: 24px;
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, #F0D080 0%, #D4AF37 50%, #B8860B 100%);
+      color: #17283C;
+      font-weight: 700;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 14px rgba(212, 175, 55, 0.3);
+    }
+    .btn-gold:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.45);
+    }
+    .input-field {
+      font-family: 'Cormorant Infant', serif;
+      font-size: 1.15rem;
+      border: 1px solid rgba(85, 122, 149, 0.35);
+      background: #FFFFFF;
+      color: #1C2833;
+      border-radius: 12px;
+      padding: 0.75rem 1.1rem;
+      width: 100%;
+      transition: all 0.2s ease;
+    }
+    .input-field:focus {
+      outline: none;
+      border-color: #B8860B;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
+    }
+  </style>
+</head>
+<body class="py-10 px-4">
+
+  <div class="max-w-xl mx-auto">
+
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <p class="text-xs uppercase tracking-[0.35em] text-[#F0D080] font-semibold mb-1">Tools Undangan Digital</p>
+      <h1 class="font-heading text-5xl sm:text-6xl text-[#FDFBF7] drop-shadow">Generator Link Tamu</h1>
+      <p class="text-sm sm:text-base text-white/80 mt-2 max-w-md mx-auto">
+        Buat link undangan &amp; teks WhatsApp siap kirim secara otomatis.
+      </p>
+    </div>
+
+    <!-- Main Card -->
+    <div class="card-luxury p-6 sm:p-8 relative overflow-hidden">
+      
+      <!-- Tab Pilihan Mode -->
+      <div class="flex border-b border-stone-200 mb-6">
+        <button id="tab-single" class="pb-3 px-4 font-bold text-base text-[#8B600A] border-b-2 border-[#8B600A] transition-all">
+          Single Guest (Satu Tamu)
+        </button>
+        <button id="tab-batch" class="pb-3 px-4 font-bold text-base text-stone-500 hover:text-stone-800 transition-all">
+          Batch Guest (Banyak Tamu)
+        </button>
+      </div>
+
+      <!-- ── MODE SINGLE ── -->
+      <div id="panel-single" class="space-y-5">
+        <div>
+          <label for="guest-input" class="block font-bold text-xs uppercase tracking-wider text-[#8B600A] mb-1.5">
+            Nama Tamu / Gelar *
+          </label>
+          <input type="text" id="guest-input" class="input-field" placeholder="Contoh: Bapak Ahmad Syarif & Partner" autofocus>
+          <p class="text-[11px] text-stone-500 mt-1">Bisa nama perorangan, pasangan, keluarga, atau institusi.</p>
+        </div>
+
+        <div>
+          <label for="template-select" class="block font-bold text-xs uppercase tracking-wider text-[#8B600A] mb-1.5">
+            Format Pesan WhatsApp
+          </label>
+          <select id="template-select" class="input-field cursor-pointer">
+            <option value="formal">Sopan &amp; Formal (Bapak/Ibu/Keluarga)</option>
+            <option value="friends">Santai &amp; Akrab (Teman / Sahabat)</option>
+            <option value="short">Singkat &amp; Padat</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="phone-input" class="block font-bold text-xs uppercase tracking-wider text-[#8B600A] mb-1.5">
+            Nomor WhatsApp Tujuan (Opsional)
+          </label>
+          <input type="tel" id="phone-input" class="input-field font-mono text-sm" placeholder="Contoh: 08123456789 atau 628123456789">
+        </div>
+
+        <div class="pt-2 border-t border-stone-200">
+          <label class="block font-bold text-xs uppercase tracking-wider text-[#8B600A] mb-1.5">
+            Hasil Link Undangan
+          </label>
+          <div class="flex items-center gap-2">
+            <input type="text" id="result-url" readonly class="input-field font-mono text-xs bg-stone-100 text-stone-800 select-all" value="">
+            <button id="copy-url-btn" class="px-4 py-2.5 rounded-xl bg-stone-200 hover:bg-stone-300 text-stone-800 text-xs font-bold transition-all whitespace-nowrap">
+              Salin Link
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-xs uppercase tracking-wider text-[#8B600A] mb-1.5">
+            Pratinjau Pesan WhatsApp Siap Kirim
+          </label>
+          <textarea id="result-message" rows="7" readonly class="input-field text-sm leading-relaxed bg-stone-50 text-stone-800 select-all"></textarea>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+          <button id="copy-msg-btn" class="py-3 px-5 rounded-full bg-stone-800 hover:bg-stone-900 text-white font-bold text-sm transition-all shadow text-center cursor-pointer flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            Salin Seluruh Pesan
+          </button>
+          <button id="send-wa-btn" class="py-3 px-5 rounded-full btn-gold text-sm transition-all text-center cursor-pointer flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
+            Kirim via WhatsApp
+          </button>
+        </div>
+        
+        <div class="text-center pt-2">
+          <a id="preview-link" href="#" target="_blank" class="text-xs font-semibold text-[#8B600A] hover:underline">
+            ↗ Buka Pratinjau Undangan di Tab Baru
+          </a>
+        </div>
+      </div>
+
+      <!-- ── MODE BATCH ── -->
+      <div id="panel-batch" class="space-y-4 hidden">
+        <p class="text-xs text-stone-600 leading-relaxed">
+          Tempelkan (paste) daftar nama tamu dari Excel atau catatan Anda (satu nama per baris). Sistem akan membuat daftar link Base64 sekaligus.
+        </p>
+        <textarea id="batch-input" rows="5" class="input-field text-sm font-sans" placeholder="Contoh:
+Bapak Ir. Bambang & Keluarga
+dr. Amanda Pramudita
+Keluarga Besar Alm. H. Sudirman
+Rian & Pasangan"></textarea>
+
+        <button id="batch-generate-btn" class="w-full py-2.5 rounded-full btn-gold text-xs font-bold uppercase tracking-wider">
+          Generate Semua Link
+        </button>
+
+        <div id="batch-result-container" class="hidden space-y-3 pt-3 border-t border-stone-200">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold text-[#8B600A] uppercase tracking-wider">Hasil Batch Link</span>
+            <button id="copy-all-batch-btn" class="text-xs font-bold text-[#8B600A] hover:underline">
+              Salin Semua Link
+            </button>
+          </div>
+          <textarea id="batch-output" rows="7" readonly class="input-field text-xs font-mono select-all bg-stone-50"></textarea>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer Note -->
+    <div class="text-center mt-6 text-xs text-white/50">
+      <p>© 2027 The Wedding of Raka & Sekar · Zerion Tech Studio</p>
+    </div>
+
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 px-5 py-2.5 bg-stone-900 text-white text-xs font-semibold rounded-full shadow-2xl opacity-0 pointer-events-none transition-all duration-300 z-50">
+    Tersalin ke clipboard! ✨
+  </div>
+
+  <script>
+    // URL Base Helper
+    function getBaseUrl() {
+      const loc = window.location;
+      // Jika di generator.html, ganti generator.html dengan index.html atau direktori saat ini
+      const path = loc.pathname.replace(/generator\.html$/i, '');
+      return `${loc.origin}${path}`;
+    }
+
+    // Base64 UTF-8 Safe Encode
+    function encodeBase64(str) {
+      return btoa(unescape(encodeURIComponent(str.trim())));
+    }
+
+    // Elements
+    const guestInput = document.getElementById('guest-input');
+    const templateSelect = document.getElementById('template-select');
+    const phoneInput = document.getElementById('phone-input');
+    const resultUrl = document.getElementById('result-url');
+    const resultMsg = document.getElementById('result-message');
+    const previewLink = document.getElementById('preview-link');
+    const copyUrlBtn = document.getElementById('copy-url-btn');
+    const copyMsgBtn = document.getElementById('copy-msg-btn');
+    const sendWaBtn = document.getElementById('send-wa-btn');
+    const toast = document.getElementById('toast');
+
+    // Templates
+    const templates = {
+      formal: (name, url) => `Kepada Yth.
+${name}
+
+Assalamu’alaikum Warahmatullahi Wabarakatuh.
+
+Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami:
+
+Raka Mahendra & Sekar Ayu
+
+Informasi detail mengenai acara, waktu, dan lokasi dapat diakses melalui tautan undangan digital berikut:
+${url}
+
+Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir serta memberikan doa restu.
+
+Wassalamu’alaikum Warahmatullahi Wabarakatuh.
+Kami yang berbahagia,
+Raka & Sekar`,
+
+      friends: (name, url) => `Halo ${name}! 🌸
+
+Kabar bahagia untuk kita semua. Dengan penuh rasa syukur, kami ingin mengundang kamu untuk hadir dan berbagi momen istimewa di hari pernikahan kami:
+
+✨ The Wedding of Raka & Sekar ✨
+🗓 Jumat, 1 Januari 2027
+
+Detail acara & lokasi bisa dilihat langsung di undangan digital ini ya:
+${url}
+
+Kehadiran dan doa restumu sangat berarti bagi kami. Sampai jumpa di hari bahagia kami! 🤍
+
+Salam hangat,
+Raka & Sekar`,
+
+      short: (name, url) => `Yth. ${name},
+Kami mengundang Anda untuk hadir di hari bahagia pernikahan kami:
+
+Raka & Sekar
+Buka undangan digital:
+${url}
+
+Terima kasih atas doa & restunya! 💍`
+    };
+
+    function updateSingle() {
+      const name = guestInput.value.trim() || 'Tamu Undangan';
+      const encoded = encodeBase64(name);
+      const baseUrl = getBaseUrl();
+      const finalUrl = `${baseUrl}?v=${encoded}`;
+
+      resultUrl.value = finalUrl;
+      previewLink.href = finalUrl;
+
+      const templateFn = templates[templateSelect.value] || templates.formal;
+      resultMsg.value = templateFn(name, finalUrl);
+    }
+
+    guestInput.addEventListener('input', updateSingle);
+    templateSelect.addEventListener('change', updateSingle);
+
+    // Initial run
+    guestInput.value = 'Bapak Ahmad Syarif & Partner';
+    updateSingle();
+
+    // Show Toast
+    function showToast(msg = 'Tersalin ke clipboard! ✨') {
+      toast.textContent = msg;
+      toast.classList.remove('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'pointer-events-none');
+      }, 2200);
+    }
+
+    // Copy actions
+    copyUrlBtn.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(resultUrl.value);
+      showToast('Link undangan berhasil disalin!');
+    });
+
+    copyMsgBtn.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(resultMsg.value);
+      showToast('Pesan WhatsApp berhasil disalin!');
+    });
+
+    // Send WhatsApp
+    sendWaBtn.addEventListener('click', () => {
+      let phone = phoneInput.value.trim().replace(/[^0-9]/g, '');
+      if (phone.startsWith('0')) {
+        phone = '62' + phone.slice(1);
+      }
+      const text = encodeURIComponent(resultMsg.value);
+      const waUrl = phone ? `https://wa.me/${phone}?text=${text}` : `https://wa.me/?text=${text}`;
+      window.open(waUrl, '_blank');
+    });
+
+    // Tabs Switcher
+    const tabSingle = document.getElementById('tab-single');
+    const tabBatch = document.getElementById('tab-batch');
+    const panelSingle = document.getElementById('panel-single');
+    const panelBatch = document.getElementById('panel-batch');
+
+    tabSingle.addEventListener('click', () => {
+      tabSingle.className = 'pb-3 px-4 font-bold text-base text-[#8B600A] border-b-2 border-[#8B600A] transition-all';
+      tabBatch.className = 'pb-3 px-4 font-bold text-base text-stone-500 hover:text-stone-800 transition-all';
+      panelSingle.classList.remove('hidden');
+      panelBatch.classList.add('hidden');
+    });
+
+    tabBatch.addEventListener('click', () => {
+      tabBatch.className = 'pb-3 px-4 font-bold text-base text-[#8B600A] border-b-2 border-[#8B600A] transition-all';
+      tabSingle.className = 'pb-3 px-4 font-bold text-base text-stone-500 hover:text-stone-800 transition-all';
+      panelBatch.classList.remove('hidden');
+      panelSingle.classList.add('hidden');
+    });
+
+    // Batch Generator
+    const batchInput = document.getElementById('batch-input');
+    const batchGenBtn = document.getElementById('batch-generate-btn');
+    const batchOutput = document.getElementById('batch-output');
+    const batchContainer = document.getElementById('batch-result-container');
+    const copyAllBatchBtn = document.getElementById('copy-all-batch-btn');
+
+    batchGenBtn.addEventListener('click', () => {
+      const lines = batchInput.value.split('\n').map(l => l.trim()).filter(Boolean);
+      if (lines.length === 0) return;
+
+      const baseUrl = getBaseUrl();
+      const results = lines.map(name => {
+        const enc = encodeBase64(name);
+        return `${name} : ${baseUrl}?v=${enc}`;
+      });
+
+      batchOutput.value = results.join('\n');
+      batchContainer.classList.remove('hidden');
+      showToast(`Berhasil men-generate ${lines.length} link!`);
+    });
+
+    copyAllBatchBtn.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(batchOutput.value);
+      showToast('Semua link berhasil disalin!');
+    });
+  </script>
+</body>
+</html>
