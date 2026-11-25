@@ -120,10 +120,10 @@ if (new URLSearchParams(window.location.search).has('open')) {
 }
 
 // ─────────────────────────────────────────────
-// 2. COUNTDOWN TIMER (Target: 1 Januari 2027)
+// 2. COUNTDOWN TIMER (Target: 2 Desember 2026)
 // ─────────────────────────────────────────────
 function initCountdown() {
-  const targetDate = new Date('2027-01-01T08:00:00+07:00').getTime();
+  const targetDate = new Date('2026-12-02T08:00:00+07:00').getTime();
 
   const daysEl  = document.getElementById('cd-days');
   const hoursEl = document.getElementById('cd-hours');
@@ -348,9 +348,9 @@ document.querySelectorAll('[data-copy]').forEach(btn => {
 const openCalendar = () => {
   const p = new URLSearchParams({
     action: 'TEMPLATE',
-    text:   'The Wedding of Raka & Sekar',
-    dates:  '20270101T010000Z/20270101T090000Z',
-    details:'Pernikahan Raka Mahendra & Sekar Ayu\nGedung Graha Santika, Jakarta',
+    text:   'The Wedding of Rohman & Hanipah',
+    dates:  '20261202T010000Z/20261202T090000Z',
+    details:'Pernikahan Rohman & Hanipah\nKp. Ciburuy, Desa Cinta Karya, Kec. Sindangkerta, KBB',
     location:'Gedung Graha Santika, Jakarta'
   });
   window.open('https://calendar.google.com/calendar/render?' + p.toString(), '_blank', 'noopener');

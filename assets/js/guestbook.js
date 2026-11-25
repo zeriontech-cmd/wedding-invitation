@@ -4,7 +4,7 @@
 
 // ⚠️  Ganti URL ini dengan URL deployment Google Apps Script Anda
 // (bisa pakai endpoint yang sama dengan RSVP, beda 'action' parameter)
-const GUESTBOOK_ENDPOINT = 'https://script.google.com/macros/s/YOUR_APPS_SCRIPT_ID/exec';
+const GUESTBOOK_ENDPOINT = 'https://script.google.com/macros/s/AKfycbymfS_Lm0acOmQ1arZWygtskeZ1nQNxaTeKQXPKaeKE5MjAv5qch6xmAaOhKzRjIJwI/exec';
 
 const wishForm    = document.getElementById('wish-form');
 const wishesList  = document.getElementById('wishes-list');

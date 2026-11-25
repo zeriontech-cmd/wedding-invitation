@@ -4,7 +4,7 @@
 
 // ⚠️  Ganti URL ini dengan URL deployment Google Apps Script Anda
 // Panduan setup ada di README.md
-const RSVP_ENDPOINT = 'https://script.google.com/macros/s/YOUR_APPS_SCRIPT_ID/exec';
+const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbymfS_Lm0acOmQ1arZWygtskeZ1nQNxaTeKQXPKaeKE5MjAv5qch6xmAaOhKzRjIJwI/exec';
 
 const rsvpForm    = document.getElementById('rsvp-form');
 const rsvpSuccess = document.getElementById('rsvp-success');
