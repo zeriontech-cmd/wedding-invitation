@@ -67,7 +67,6 @@ function renderDemoWishes() {
   const demos = [
     { name: 'Budi & Rina', message: 'Semoga menjadi keluarga yang sakinah, mawaddah, warahmah. Bahagia selalu! 🌸', timestamp: '1 hari lalu' },
     { name: 'Keluarga Haryanto', message: 'Selamat menempuh hidup baru. Semoga langgeng dan selalu dalam lindungan Allah SWT. 🤲', timestamp: '2 hari lalu' },
-    { name: 'Dian & Reza', message: 'Bahagia selalu ya kak Raka dan kak Sekar! Semoga cepat dapat momongan hehe 😊', timestamp: '3 hari lalu' },
   ];
   return demos.map(w => `
     <div class="wish-card mb-3">
