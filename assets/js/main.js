@@ -56,40 +56,147 @@ initGuestName();
 // ─────────────────────────────────────────────
 // 1. COVER PAGE
 // ─────────────────────────────────────────────
-const cover       = document.getElementById('cover');
-const openBtn     = document.getElementById('open-btn');
-const mainContent = document.getElementById('main-content');
+const cover           = document.getElementById('cover');
+const openBtn         = document.getElementById('open-btn');
+const mainContent     = document.getElementById('main-content');
+const leafCurtain     = document.getElementById('leaf-curtain');
+const leafLeftBack    = document.getElementById('leaf-left-back');
+const leafLeftFront   = document.getElementById('leaf-left-front');
+const leafRightBack   = document.getElementById('leaf-right-back');
+const leafRightFront  = document.getElementById('leaf-right-front');
 
 if (!prefersReducedMotion && typeof gsap !== 'undefined') {
   const tl = gsap.timeline({ delay: 0.1 });
   tl.from('#cover-content h1', { opacity: 0, scale: 0.92, duration: 0.8, ease: 'power2.out' });
 }
 
+function scatterLeafBurst() {
+  if (prefersReducedMotion) return;
+  const leafColors = ['#6E8B68', '#95B099', '#E5A9B8', '#D48A9B', '#D4AF37'];
+  for (let i = 0; i < 16; i++) {
+    const leaf = document.createElement('div');
+    leaf.className = 'petal';
+    const size = 8 + Math.random() * 10;
+    leaf.style.cssText = `
+      left: ${15 + Math.random() * 70}%;
+      top: ${Math.random() * 25}%;
+      width: ${size}px;
+      height: ${size * 1.4}px;
+      background: ${leafColors[Math.floor(Math.random() * leafColors.length)]};
+      animation-duration: ${4.5 + Math.random() * 4}s;
+      animation-delay: ${Math.random() * 0.45}s;
+      opacity: 0.85;
+      border-radius: 0 75% 0 75%;
+    `;
+    document.body.appendChild(leaf);
+    setTimeout(() => leaf.remove(), 9000);
+  }
+}
+
 openBtn?.addEventListener('click', () => {
   tryPlayMusic();
 
-  if (prefersReducedMotion || typeof gsap === 'undefined') {
+  if (prefersReducedMotion || typeof gsap === 'undefined' || !leafCurtain) {
     cover.style.display = 'none';
     mainContent.style.opacity = '1';
     mainContent.style.pointerEvents = 'auto';
+    initScrollAnimations();
+    startPetals();
     return;
   }
 
-  cover.classList.add('closing');
   document.body.style.overflow = 'hidden';
+  leafCurtain.classList.add('active');
 
-  setTimeout(() => {
-    cover.style.display = 'none';
-    document.body.style.overflow = '';
+  // Initial state: 2 tangkai kiri & 2 tangkai kanan sedikit di luar, siap menyatu lembut
+  gsap.set([leafLeftBack, leafLeftFront], { xPercent: -55, opacity: 0, scale: 1.03 });
+  gsap.set(leafLeftBack,  { rotation: -5 });
+  gsap.set(leafLeftFront, { rotation: -9 });
 
-    gsap.to(mainContent, {
-      opacity: 1, pointerEvents: 'auto', duration: 0.8, ease: 'power2.out',
+  gsap.set([leafRightBack, leafRightFront], { xPercent: 55, opacity: 0, scale: 1.03 });
+  gsap.set(leafRightBack,  { rotation: 5 });
+  gsap.set(leafRightFront, { rotation: 9 });
+
+  const curtainTl = gsap.timeline({
+    onComplete: () => {
+      leafCurtain.classList.remove('active');
+      document.body.style.overflow = '';
+      initScrollAnimations();
+      startPetals();
+    }
+  });
+
+  curtainTl
+    // 1. Kedua lapis tangkai bunga & daun masuk sangat lembut sambil cover memudar perlahan
+    .to([leafLeftBack, leafLeftFront], {
+      xPercent: 4,
+      rotation: 1.5,
+      opacity: 1,
+      scale: 1,
+      duration: 0.95,
+      stagger: 0.12,
+      ease: 'sine.out'
+    })
+    .to([leafRightBack, leafRightFront], {
+      xPercent: -4,
+      rotation: -1.5,
+      opacity: 1,
+      scale: 1,
+      duration: 0.95,
+      stagger: 0.12,
+      ease: 'sine.out'
+    }, '<')
+    .to(cover, {
+      opacity: 0,
+      scale: 1.03,
+      duration: 0.95,
+      ease: 'sine.inOut',
       onComplete: () => {
-        initScrollAnimations();
-        startPetals();
+        cover.style.display = 'none';
+        mainContent.style.opacity = '1';
+        mainContent.style.pointerEvents = 'auto';
       }
-    });
-  }, 850);
+    }, '<+=0.15')
+    .add(() => {
+      scatterLeafBurst();
+    }, '-=0.15')
+    // 2. Continuous Slow Parallax Parting: tirai tangkai bunga menyibak lamban & anggun
+    .to(leafLeftFront, {
+      xPercent: -120,
+      rotation: -12,
+      opacity: 0,
+      duration: 2.1,
+      ease: 'power1.inOut'
+    }, '-=0.1')
+    .to(leafRightFront, {
+      xPercent: 120,
+      rotation: 12,
+      opacity: 0,
+      duration: 2.1,
+      ease: 'power1.inOut'
+    }, '<')
+    .to(leafLeftBack, {
+      xPercent: -108,
+      rotation: -7,
+      opacity: 0,
+      duration: 2.45,
+      ease: 'sine.inOut'
+    }, '<+=0.15')
+    .to(leafRightBack, {
+      xPercent: 108,
+      rotation: 7,
+      opacity: 0,
+      duration: 2.45,
+      ease: 'sine.inOut'
+    }, '<')
+    // 3. Hero Arch Card muncul perlahan di balik tirai tangkai bunga yang terbuka
+    .from('#hero .arch-frame-container', {
+      scale: 0.96,
+      y: 16,
+      opacity: 0,
+      duration: 1.4,
+      ease: 'power2.out'
+    }, '-=1.8');
 });
 
 // Auto-open if ?open is present in URL (useful for direct preview & testing)
@@ -376,7 +483,7 @@ scrollTopBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior
 // ─────────────────────────────────────────────
 function startPetals() {
   if (prefersReducedMotion) return;
-  const colors = ['#D4AF37', '#FAF6EF', '#8FAFC5', '#C4D6E4'];
+  const colors = ['#D4AF37', '#FAF0F2', '#E5A9B8', '#B56E82', '#95B099'];
   for (let i = 0; i < 18; i++) {
     const petal = document.createElement('div');
     petal.className = 'petal';
@@ -406,13 +513,13 @@ giftTabs.forEach(tab => {
     const target = tab.dataset.giftTab;
     giftTabs.forEach(t => {
       t.setAttribute('aria-selected', 'false');
-      t.classList.remove('bg-[#557A95]', 'text-white');
+      t.classList.remove('bg-[#9E6374]', 'text-white');
       t.classList.add('text-stone-600');
     });
     giftPanels.forEach(p => p.classList.add('hidden'));
 
     tab.setAttribute('aria-selected', 'true');
-    tab.classList.add('bg-[#557A95]', 'text-white');
+    tab.classList.add('bg-[#9E6374]', 'text-white');
     tab.classList.remove('text-stone-600');
 
     const panel = document.querySelector(`[data-gift-panel="${target}"]`);
